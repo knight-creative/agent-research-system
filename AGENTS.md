@@ -15,6 +15,7 @@ Quick reference for the full agent system. For full instructions, read the indiv
 | `web-dev` | "build a page", "build a site", "add a section", "design a landing page" | Full website builds following the Vibe Coding sequence. Design system standards, SEO, performance, security, accessibility, pre-launch gate |
 | `portal-reviewer` | "review my portal changes", "check this code", "does this look right" | Reviews portal code against established patterns: Supabase client usage, server vs client components, mobile rules, undo/safety, copy rules |
 | `research-director` | "run research", "check for updates", manually or weekly schedule | Weekly system health check: AI model releases, stack versions, platform algorithm changes, security advisories, workflow consolidation opportunities. Runs automatically every Monday at 8am ET |
+| `competitive-analysis` | "analyze this competitor", "research [company]", "run a comp analysis", "what is [company] doing" | Scrapes a competitor's website, social profiles, Meta Ad Library, content, and job postings. Produces structured report with gap analysis. Three modes: quick / standard / deep |
 
 ---
 
