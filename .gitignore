@@ -1,0 +1,34 @@
+# Claude Code internals — do not track
+sessions/
+projects/
+plans/
+backups/
+telemetry/
+shell-snapshots/
+file-history/
+ide/
+plugins/
+settings.json
+settings.local.json
+mcp-needs-auth-cache.json
+
+# Research reports — tracked selectively
+# To include a report: git add -f research/research-report-YYYY-MM-DD.md
+
+# Third-party installed skills (managed by CLI packages)
+skills/firecrawl
+skills/firecrawl-agent
+skills/firecrawl-build-interact
+skills/firecrawl-build-onboarding
+skills/firecrawl-build-scrape
+skills/firecrawl-build-search
+skills/firecrawl-crawl
+skills/firecrawl-download
+skills/firecrawl-interact
+skills/firecrawl-map
+skills/firecrawl-scrape
+skills/firecrawl-search
+skills/blocklist.json
+
+# OS
+.DS_Store
