@@ -16,6 +16,7 @@ Quick reference for the full agent system. For full instructions, read the indiv
 | `portal-reviewer` | "review my portal changes", "check this code", "does this look right" | Reviews portal code against established patterns: Supabase client usage, server vs client components, mobile rules, undo/safety, copy rules |
 | `research-director` | "run research", "check for updates", manually or weekly schedule | Weekly system health check: AI model releases, stack versions, platform algorithm changes, security advisories, workflow consolidation opportunities. Runs automatically every Monday at 8am ET |
 | `competitive-analysis` | "analyze this competitor", "research [company]", "run a comp analysis", "what is [company] doing" | Scrapes a competitor's website, social profiles, Meta Ad Library, content, and job postings. Produces structured report with gap analysis. Three modes: quick / standard / deep |
+| `seo-aeo-geo` | "audit this site for SEO", "check our GEO presence", "are we showing up in AI answers", "optimize for answer engines", "run an SEO audit for [client]", "what keywords should [client] target" | Dual-mode: audits a site (technical SEO, on-page, AEO, GEO, content gaps) and maintains standing knowledge on what's working. Works from public data; flags where paid tools (GSC, Ahrefs) would unlock more |
 
 ---
 
