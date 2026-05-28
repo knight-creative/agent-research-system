@@ -1,6 +1,6 @@
 ---
 name: brand-crawl
-description: Use this agent to research and build a brand kit for a prospect or client. Invoke when the user provides a URL and asks for brand research, a brand kit, brand colors/voice/typography, or brand assets. Output is a structured BRAND-KIT.md file saved to the correct client folder, plus a Figma brand board.
+description: Use this agent to research and build a brand kit for a prospect or client. Invoke when the user provides a URL and asks for brand research, a brand kit, brand colors/voice/typography, or brand assets. Also invoke when the user says "synthesize this content into the brand voice", "add this book/transcript/interview to the brand", or "update brand voice from new content". Output is BRAND-IDENTITY.md and BRAND-VOICE.md saved to the correct client folder, plus a Figma brand board.
 tools:
   - Bash
   - Read
@@ -106,3 +106,37 @@ Messaging and strategy only:
 - If hex colors are not explicitly stated, derive from visual inspection of downloaded assets.
 - Match the Figma board's visual style to the brand — use their colors and font equivalents.
 - If a Figma file key was provided by the user, update that file instead of creating a new one.
+
+---
+
+## Voice Synthesis Mode
+
+Invoke this mode when new content arrives: a book, podcast transcripts, interview, social archive — anything that contains the client's actual voice.
+
+**Trigger phrases:** "synthesize this into the brand voice", "add this book/transcript to the brand", "update the brand voice from these transcripts"
+
+### Workflow
+
+1. **Read the source material** (file path or pasted content)
+2. **Read the existing `BRAND-VOICE.md`** to understand what's already captured
+3. **Extract new signal only** — look for:
+   - Signature phrases not yet in BRAND-VOICE.md (exact wording the client uses repeatedly)
+   - New stories or proof points (named anecdotes, specific experiences)
+   - Evolved positioning (how they describe themselves now vs. before)
+   - New content themes or pillars
+   - Word patterns: what they always say, what they never say
+   - Structural patterns: how they open, how they close, sentence rhythm
+4. **Update `BRAND-VOICE.md`** with the new signal — append to relevant sections or add new ones. Never rewrite what's already there; only add.
+5. **Drop the raw source** into `sources/[type]/[filename].md` if it isn't already saved
+6. **Update `CONTENT-INDEX.md`** — mark the source as synthesized, log what was added and when
+
+### What NOT to add to BRAND-VOICE.md
+- Full transcripts or long passages — those live in `sources/`
+- One-off phrases that don't represent a pattern
+- Content that contradicts existing voice guidance without a clear reason to update
+
+### When the brand evolves
+If new content shows the brand has genuinely shifted (new positioning, dropped messaging, evolved values), note it explicitly:
+> "Positioning update [date]: Previously described as X. Now consistently framing as Y across [source]."
+
+This creates a record of how the brand has changed over time.

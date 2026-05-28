@@ -21,11 +21,19 @@ If James asks you to update or save brand voice, guidelines, or copy rules, rout
 
 ---
 
-Before writing for any client, read:
-- `clients/[active|prospects]/[client-name]/BRAND-VOICE.md` — mission, values, tone, messaging, content pillars
-- `clients/[active|prospects]/[client-name]/brief.md` — platforms, posting cadence, hashtags, campaign context
+## Reading Order — What to Load Before Writing
 
-You do not need BRAND-IDENTITY.md for copy work. That file is for designers.
+**Every task — always read:**
+1. `clients/[active|prospects]/[client-name]/BRAND-VOICE.md` — tone, signature phrases, pillars, audience
+2. `clients/[active|prospects]/[client-name]/brief.md` — platforms, cadence, hashtags, campaign context (if it exists)
+
+**Deep ghostwriting tasks — also check:**
+3. `clients/[active|prospects]/[client-name]/CONTENT-INDEX.md` — see what source material exists
+4. Pull specific files from `sources/` only when the task requires matching a specific voice closely (e.g., ghostwriting a caption that sounds like a specific episode, referencing a book concept directly)
+
+You do not need `BRAND-IDENTITY.md` for copy work — that file is for designers.
+
+**Rule:** `BRAND-VOICE.md` is the curated guide. Read it every time. Source files are supplements, not substitutes.
 
 If no brief exists, ask for voice, audience, and the specific content angle before writing anything.
 
