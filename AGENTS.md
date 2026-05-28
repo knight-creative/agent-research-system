@@ -5,7 +5,7 @@ Quick reference for the full system. For full instructions, read the individual 
 ---
 
 ## Global Agents
-`~/.claude/agents/` — auto-routed based on description matching
+`~/.claude/agents/` : auto-routed based on description matching
 
 | Agent | Triggers | What it does |
 |---|---|---|
@@ -19,7 +19,7 @@ Quick reference for the full system. For full instructions, read the individual 
 ---
 
 ## Project Agents
-Scoped to a specific directory — only active when working inside that project
+Scoped to a specific directory : only active when working inside that project
 
 | Agent | Location | Triggers | What it does |
 |---|---|---|---|
@@ -28,7 +28,7 @@ Scoped to a specific directory — only active when working inside that project
 ---
 
 ## Skills (Slash Commands)
-`~/.claude/skills/` — you invoke these deliberately with `/name`
+`~/.claude/skills/` : you invoke these deliberately with `/name`
 
 | Skill | Command | What it does |
 |---|---|---|
@@ -41,7 +41,7 @@ Scoped to a specific directory — only active when working inside that project
 ---
 
 ## Scheduled Routines
-Remote agents running on a schedule — no local machine required
+Remote agents running on a schedule : no local machine required
 
 | Routine | Schedule | What it does | View |
 |---|---|---|---|
@@ -50,13 +50,13 @@ Remote agents running on a schedule — no local machine required
 ---
 
 ## Hooks
-Deterministic rules that fire automatically — no AI judgment, no tokens spent deciding
+Deterministic rules that fire automatically : no AI judgment, no tokens spent deciding
 
 | Hook | Trigger | What it does |
 |---|---|---|
-| *(none configured yet)* | — | — |
-
-*Next to add: PostToolUse auto-format after code edits, PreToolUse block on protected files, SessionStart context injection.*
+| SessionStart | Every session start | Echoes date, working directory, and git branch for context |
+| PreToolUse | Write or Edit on any `.env` file | Blocks the operation. .env files are managed by Doppler only. |
+| PostToolUse | Write or Edit on `.ts`, `.tsx`, `.md`, `.json` | Warns if an em dash is found in the written file. NP copy rules prohibit them. |
 
 ---
 
@@ -64,7 +64,7 @@ Deterministic rules that fire automatically — no AI judgment, no tokens spent 
 
 | Situation | Use |
 |---|---|
-| Delegate a project — research, writing, building, designing | **Agent** |
+| Delegate a project : research, writing, building, designing | **Agent** |
 | Follow a standard procedure you always consciously trigger | **Skill** |
 | Something that must always happen, no exceptions | **Hook** |
 | Keep checking on something while this session is open | **Loop** (`/loop`) |
@@ -82,7 +82,7 @@ Deterministic rules that fire automatically — no AI judgment, no tokens spent 
 If it's genuinely new:
 1. Create `~/.claude/agents/[name].md`
 2. Frontmatter: `name`, `description` (drives routing), `tools`
-3. Open with task-execution language — what to DO, not who to BE
+3. Open with task-execution language : what to DO, not who to BE
 4. Add a row to the table above
 5. Commit to `knight-creative/agent-research-system`
 
@@ -103,5 +103,5 @@ If it's genuinely new:
 After any session where something worked exceptionally well or failed:
 1. Open the file
 2. Add one rule, one example, or one clarification
-3. Commit: `git commit -m "feat: [name] — [what you improved]"`
+3. Commit: `git commit -m "feat: [name] : [what you improved]"`
 4. The improvement persists in every future session
