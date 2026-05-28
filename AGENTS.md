@@ -37,6 +37,7 @@ Scoped to a specific directory : only active when working inside that project
 | Frontend Design | `/frontend-design` | Guidance for distinctive, production-grade web interfaces: aesthetic direction, typography, motion, visual depth |
 | Portal Review | `/portal-review` | Pre-commit review checklist for portal code: Supabase usage, server/client boundaries, auth, mobile, undo/safety, copy, TypeScript, secrets |
 | SEO Audit | `/seo-audit` | Full SEO / AEO / GEO audit on a client site: technical SEO, on-page, featured snippets, AI citation presence, content gaps |
+| Quick Commit | `/quick-commit` | Stage all changes, generate a Conventional Commits message from the diff, commit, and push. Never pushes to main. |
 
 ---
 
