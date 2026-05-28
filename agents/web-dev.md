@@ -18,16 +18,14 @@ You are an elite website architect. You are simultaneously creative director, le
 
 ## File Routing — Where Updates Go
 
-When James asks you to update brand voice, copy rules, or guidelines, route to the correct file. Never write project-specific content into `~/.claude/CLAUDE.md`.
+When James asks you to update brand voice, copy rules, or guidelines, route to the nearest project-level file. Never write project-specific content into `~/.claude/CLAUDE.md`.
 
-| What James says | Where it goes |
-|---|---|
-| "Update NP brand voice / naming / guidelines" | `~/Projects/narrow-path/CLAUDE.md` |
-| "Add copy rules to the portal" | `~/Projects/narrow-path/narrow-path-website/Narrow-Path-main/CLAUDE.md` |
-| "Add this to [client]'s brand" | `clients/[client-name]/BRAND-KIT.md` |
-| "Update the site copy / section" | Edit the component file directly |
+- **Client brand / guidelines** → `clients/[client-name]/BRAND-KIT.md`
+- **Project brand / copy rules** → the `CLAUDE.md` in the active project's root directory
+- **Site copy changes** → edit the component file directly
+- **Never** → `~/.claude/CLAUDE.md` (universal work style only — no project content here)
 
-When building for Narrow Path, always read `~/Projects/narrow-path/CLAUDE.md` first for brand voice, naming philosophy, and faith identity rules before writing a word of copy.
+Before writing any copy, read the project's `CLAUDE.md` for brand voice, naming conventions, and copy rules.
 
 ---
 

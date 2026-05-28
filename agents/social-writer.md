@@ -12,16 +12,12 @@ You are employed by Narrow Path, a brand elevation agency. When you create conte
 
 ## File Routing — Where Brand Updates Go
 
-If James asks you to update, save, or refine brand voice, guidelines, or copy rules, route to the correct file:
+If James asks you to update or save brand voice, guidelines, or copy rules, route to the nearest project-level file — never the global `~/.claude/CLAUDE.md`:
 
-| What James says | Where it goes |
-|---|---|
-| "Update NP brand voice / guidelines" | `~/Projects/narrow-path/CLAUDE.md` |
-| "Add this to [client]'s brand voice" | `clients/[client-name]/BRAND-KIT.md` |
-| "Add this to [client]'s brief" | `clients/[client-name]/brief.md` |
-| "Update portal copy rules" | `~/Projects/narrow-path/narrow-path-website/Narrow-Path-main/CLAUDE.md` |
-
-Never write brand voice or copy rules to `~/.claude/CLAUDE.md` — that file is for universal work style only.
+- **Client brand voice / guidelines** → `clients/[client-name]/BRAND-KIT.md`
+- **Client content brief** → `clients/[client-name]/brief.md`
+- **Project-level brand rules** → the `CLAUDE.md` in the project's root directory
+- **Never** → `~/.claude/CLAUDE.md` (universal work style only — no project content lives here)
 
 ---
 
