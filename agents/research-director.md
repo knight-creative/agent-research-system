@@ -186,40 +186,71 @@ firecrawl search "Anthropic model release announcement" --limit 5 -o /tmp/anthro
 ```
 
 ### Stack Versions
-```bash
-cd ~/Projects/narrow-path/narrow-path-website/Narrow-Path-main
-npm view next version
-npm view tailwindcss version
-npm view @supabase/supabase-js version
-npm view typescript version
-npm view framer-motion version
 
-# Check for deprecation notices
+```bash
+YEAR=$(date +%Y)
+
+# Portal — full outdated report (all ~35 dependencies in one shot)
+cd ~/Projects/narrow-path/narrow-path-website/Narrow-Path-main
+npx pnpm outdated 2>/dev/null || true
+
+# Portal — security audit (catches CVEs in installed packages automatically)
+npx pnpm audit --format json 2>/dev/null > /tmp/portal-audit.json || true
+npx pnpm audit 2>/dev/null | tail -30
+
+# Social media scheduler — separate project, uses npm
+cd ~/Projects/narrow-path/social-media-scheduler
+npm outdated 2>/dev/null || true
+npm audit 2>/dev/null | tail -20
+
+# Runtime and CLI tool versions
+node --version
+npx pnpm --version
+doppler --version 2>/dev/null || echo "doppler: not on PATH — check manually"
+```
+
+Populate the Stack Health table directly from `pnpm outdated` output — do not manually list packages. Every package that appears in the outdated report gets a row. Packages not listed are current and can be summarized as "all other dependencies: current."
+
+For any package flagged by `pnpm audit` with CVSS > 7, escalate immediately to the SECURITY ALERT section — do not wait for a Tier 1 source confirmation. The audit IS the Tier 1 source.
+
+```bash
+# Changelog scrapes for context on major releases
 firecrawl scrape "https://nextjs.org/blog" -o /tmp/nextjs-blog.json
 firecrawl scrape "https://supabase.com/changelog" -o /tmp/supabase-changelog.json
 ```
 
 ### Platform Intelligence
 ```bash
-firecrawl search "Instagram algorithm update data 2025" --limit 5 -o /tmp/ig.json
-firecrawl search "LinkedIn algorithm changes official 2025" --limit 5 -o /tmp/linkedin.json
-firecrawl search "Facebook reach algorithm update 2025" --limit 5 -o /tmp/fb.json
-firecrawl search "TikTok algorithm official announcement 2025" --limit 3 -o /tmp/tiktok.json
-firecrawl search "YouTube Shorts algorithm update 2025" --limit 3 -o /tmp/yt.json
+YEAR=$(date +%Y)
+firecrawl search "Instagram algorithm update data ${YEAR}" --limit 5 -o /tmp/ig.json
+firecrawl search "LinkedIn algorithm changes official ${YEAR}" --limit 5 -o /tmp/linkedin.json
+firecrawl search "Facebook reach algorithm update ${YEAR}" --limit 5 -o /tmp/fb.json
+firecrawl search "TikTok algorithm official announcement ${YEAR}" --limit 3 -o /tmp/tiktok.json
+firecrawl search "YouTube Shorts algorithm update ${YEAR}" --limit 3 -o /tmp/yt.json
 ```
 
 ### Security
+
+`pnpm audit` and `npm audit` above are the primary source — they check installed packages against the npm advisory database automatically. Run those first.
+
+Supplement with targeted searches for newly disclosed CVEs that may not be in the npm database yet:
+
 ```bash
-firecrawl search "Next.js security vulnerability CVE 2025" --limit 3 -o /tmp/nextjs-sec.json
-firecrawl search "Supabase security advisory 2025" --limit 3 -o /tmp/supabase-sec.json
+YEAR=$(date +%Y)
+firecrawl search "Next.js security vulnerability CVE ${YEAR}" --limit 3 -o /tmp/nextjs-sec.json
+firecrawl search "Supabase security advisory ${YEAR}" --limit 3 -o /tmp/supabase-sec.json
+firecrawl search "React security vulnerability CVE ${YEAR}" --limit 3 -o /tmp/react-sec.json
 ```
+
+Escalation rule: any `pnpm audit` finding with CVSS > 7 OR marked "critical" goes to SECURITY ALERT at the top of the report, regardless of whether a Tier 1 external source has covered it. The npm advisory database is authoritative.
 
 ### Workflow Consolidation
 ```bash
-firecrawl search "tool that replaces Vercel Supabase combined 2025" --limit 5 -o /tmp/consolidation.json
-firecrawl search "Resend alternative email platform 2025" --limit 3 -o /tmp/email-tools.json
-firecrawl search "Doppler secrets management alternative 2025" --limit 3 -o /tmp/secrets-tools.json
-firecrawl search "Metricool alternative social scheduling 2025" --limit 3 -o /tmp/social-tools.json
+YEAR=$(date +%Y)
+firecrawl search "tool that replaces Vercel Supabase combined ${YEAR}" --limit 5 -o /tmp/consolidation.json
+firecrawl search "Resend alternative email platform ${YEAR}" --limit 3 -o /tmp/email-tools.json
+firecrawl search "Doppler secrets management alternative ${YEAR}" --limit 3 -o /tmp/secrets-tools.json
+firecrawl search "Metricool alternative social scheduling ${YEAR}" --limit 3 -o /tmp/social-tools.json
 ```
 
 ---
@@ -271,8 +302,21 @@ Status + any deprecation timelines
 ---
 
 ## Stack Health
-| Package | In project | Latest | Status | Notes |
-|---|---|---|---|---|
+
+**Audit results:** [portal: X vulnerabilities (Y critical, Z high) / scheduler: X vulnerabilities]
+[If clean: "pnpm audit and npm audit: no vulnerabilities found."]
+
+**Outdated packages** (from `pnpm outdated` + `npm outdated` — only packages behind are listed):
+| Package | Project | Current | Latest | Severity | Notes |
+|---|---|---|---|---|---|
+[If all current: "All dependencies current in both projects."]
+
+**Runtime / CLI:**
+| Tool | Current | Latest | Status |
+|---|---|---|---|
+| Node.js | | | |
+| pnpm | | | |
+| doppler | | | |
 
 ---
 
