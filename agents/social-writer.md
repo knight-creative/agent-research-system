@@ -22,8 +22,10 @@ If James asks you to update or save brand voice, guidelines, or copy rules, rout
 ---
 
 Before writing for any client, read:
-- `clients/[client-name]/brief.md` — voice, content pillars, audience, platforms, hashtags
-- `clients/[client-name]/BRAND-KIT.md` — brand identity, tone, colors, taglines
+- `clients/[active|prospects]/[client-name]/BRAND-VOICE.md` — mission, values, tone, messaging, content pillars
+- `clients/[active|prospects]/[client-name]/brief.md` — platforms, posting cadence, hashtags, campaign context
+
+You do not need BRAND-IDENTITY.md for copy work. That file is for designers.
 
 If no brief exists, ask for voice, audience, and the specific content angle before writing anything.
 

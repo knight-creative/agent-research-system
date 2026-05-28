@@ -57,58 +57,52 @@ Single-page scrapes and searches (`firecrawl scrape`, `firecrawl search --limit 
    - Digital presence: social handles, podcast feed, YouTube channel
    - Content pillars: recurring themes across pages and posts
 
-5. **Write BRAND-KIT.md** to `clients/[client-name]/BRAND-KIT.md` using the structure below.
+5. **Write two brand files** to the correct client folder:
+   - `clients/[active|prospects]/[client-name]/BRAND-IDENTITY.md` — visual identity
+   - `clients/[active|prospects]/[client-name]/BRAND-VOICE.md` — messaging and strategy
+
+   Use the templates in `clients/templates/` as the base structure.
 
 6. **Build a Figma brand board** using the Figma MCP. Create a new file with sections: header, color palette, typography specimens, brand voice cards, brand assets (uploaded images), content pillars, digital presence. Style the board using the brand's own colors and typography.
 
-## BRAND-KIT.md Structure
+## Client Folder Location
 
-```markdown
-# [Client Name] — Brand Kit
-
-**Status:** [Prospect / Active]
-**Website:** [URL]
-**Research date:** [YYYY-MM-DD]
-
-## What They Are
-[1-2 sentence description of who they are and who they serve]
-
-## Key People
-- **[Name]** — [Title]. [2-3 sentence bio.]
-
-## Brand Identity
-
-### Colors
-- **[Name]** `#XXXXXX` — [usage: primary background / headline / accent]
-
-### Typography
-- **Headlines:** [font family], [weight], [style notes — e.g. all-caps condensed]
-- **Body:** [font family], [weight]
-- **Accent / UI:** [if different]
-
-### Voice
-[4-6 tone adjectives]. [2-3 sentences describing how they communicate — sentence length, vocabulary, what they lean into and what they avoid.]
-
-**Avoid:** [anti-patterns observed in their copy]
-
-## Taglines and Mission
-- **Primary tagline:** "[exact text]"
-- **Mission:** "[exact text]"
-
-## Content Pillars
-1. [Pillar] — [description]
-
-## Digital Presence
-- [Platform]: [handle or URL]
-
-## Assets
-- [Description]: `assets/[filename]`
 ```
+clients/
+├── active/      Paying clients
+├── prospects/   Companies being pitched or researched
+└── templates/   BRAND-IDENTITY-template.md, BRAND-VOICE-template.md
+```
+
+Determine active vs. prospect from context. If unsure, ask. Default to `prospects/` for research runs.
+
+## BRAND-IDENTITY.md — What Goes Here
+
+Visual identity only:
+- Color palette (name, hex, RGB, usage)
+- Typography (fonts, weights, hierarchy, rules)
+- Logo (variants, usage rules, file paths, live URLs)
+- Visual style and aesthetic principles
+- Design assets (files in `assets/`, Figma board URL)
+
+## BRAND-VOICE.md — What Goes Here
+
+Messaging and strategy only:
+- Who they are (1-2 sentence overview)
+- Mission and taglines (verbatim from site)
+- Voice attributes (tone adjectives + what they mean in practice)
+- Writing style (sentence structure, vocabulary, more/less of)
+- Content pillars
+- Key people (names, titles, bios)
+- Target audience
+- Competitive positioning
+- Digital presence
+- Sample copy (verbatim from site)
 
 ## Rules
 
-- Save downloaded assets to `clients/[client-name]/assets/` — never commit brand assets to git without checking for sensitive material
-- All copy in the brand kit must be extracted verbatim from the site. No editorializing or paraphrasing taglines and mission statements.
-- If hex colors are not explicitly stated on the site, derive them from visual inspection of downloaded assets using the dominant colors.
-- Match the Figma board's visual style to the brand itself — use their colors and font equivalents in the board design.
+- Save downloaded assets to `clients/[active|prospects]/[client-name]/assets/`
+- All taglines and mission statements must be verbatim from the site. No paraphrasing.
+- If hex colors are not explicitly stated, derive from visual inspection of downloaded assets.
+- Match the Figma board's visual style to the brand — use their colors and font equivalents.
 - If a Figma file key was provided by the user, update that file instead of creating a new one.

@@ -72,10 +72,12 @@ If the user provides a Figma URL, parse it before any tool call.
 
 ## Workflow: Brand Board
 
-When building a brand board from a BRAND-KIT.md:
+When building a brand board for a client:
 
-1. **Read the brand kit:** `clients/[client-name]/BRAND-KIT.md`
-2. **Download any assets** in `clients/[client-name]/assets/` that need to go in the board
+1. **Read both brand files:**
+   - `clients/[active|prospects]/[client-name]/BRAND-IDENTITY.md` — colors, fonts, logos, visual style
+   - `clients/[active|prospects]/[client-name]/BRAND-VOICE.md` — taglines, pillars, tone (for voice cards)
+2. **Download any assets** in `clients/[active|prospects]/[client-name]/assets/` that need to go in the board
 3. **Invoke `/figma-use` skill**, then create or open the Figma file
 4. **Upload assets** using `upload_assets` before building the board
 5. **Build sections in order:**
