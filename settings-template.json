@@ -1,0 +1,62 @@
+{
+  "_readme": "Copy this to settings.json and fill in real API keys. settings.json is gitignored; this template is the versioned backup.",
+
+  "mcpServers": {
+    "figma": {
+      "transport": "http",
+      "url": "https://mcp.figma.com/mcp"
+    },
+    "higgsfield": {
+      "transport": "http",
+      "url": "https://mcp.higgsfield.ai/mcp"
+    },
+    "kie-ai": {
+      "command": "/usr/local/bin/node",
+      "args": ["/Users/theknightfamily/Projects/node_modules/@felores/kie-ai-mcp-server/dist/index.js"],
+      "env": {
+        "KIE_AI_API_KEY": "FILL_IN_FROM_1PASSWORD"
+      }
+    }
+  },
+
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '── Session ──────────────────────────' && echo \"Date:   $(date '+%Y-%m-%d %H:%M')\" && echo \"Dir:    $(pwd)\" && echo \"Branch: $(git branch --show-current 2>/dev/null || echo 'not a git repo')\" && echo '────────────────────────────────────'",
+            "statusMessage": "Loading session context..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import json,sys,re; d=json.load(sys.stdin); path=d.get('tool_input',{}).get('file_path',''); re.search(r'\\.env($|\\.)',path) and (print(json.dumps({'hookSpecificOutput':{'hookEventName':'PreToolUse','permissionDecision':'deny','permissionDecisionReason':'BLOCKED: .env files are managed by Doppler. Never write secrets to .env files.'}})) or sys.exit(2))\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import json,sys,re; d=json.load(sys.stdin); path=d.get('tool_input',{}).get('file_path','') or d.get('tool_response',{}).get('filePath',''); re.search(r'\\.(ts|tsx|md|json)$',path) and open(path,errors='ignore').read().__contains__('\\u2014') and print(json.dumps({'hookSpecificOutput':{'hookEventName':'PostToolUse','additionalContext':'WARNING: Em dash found in '+path+'. NP copy rules prohibit em dashes. Fix before committing.'}}))\" 2>/dev/null || true",
+            "async": true
+          },
+          {
+            "type": "command",
+            "command": "python3 -c \"import json,sys; d=json.load(sys.stdin); path=d.get('tool_input',{}).get('file_path','') or d.get('tool_response',{}).get('filePath',''); print(json.dumps({'hookSpecificOutput':{'hookEventName':'PostToolUse','additionalContext':'File written: '+path+'. Write succeeded. Do NOT read this file back to verify.'}}))\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
