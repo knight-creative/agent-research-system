@@ -1,7 +1,7 @@
 ---
 name: client-onboard
 description: |
-  Step-by-step checklist for onboarding a new Narrow Path client. Use when adding a new paying client or converting a prospect. Covers folder setup, Doppler project creation, Supabase profile, portal auth account, and Google Drive folder. Critical: company_name in Supabase must exactly match the Drive folder name.
+  Step-by-step checklist for onboarding a new Narrow Path client. Use when adding a new paying client or converting a prospect. Covers folder setup, brand files, scheduler config, Doppler, Supabase, portal auth, and Google Drive.
 allowed-tools:
   - Bash
   - Read
@@ -14,99 +14,164 @@ Step-by-step onboarding for a new Narrow Path client. Complete every step in ord
 
 ## Before You Start
 
-Confirm these three things with James before touching anything:
+Confirm with James before touching anything:
 
 1. **Client name** — exact spelling and casing as it will appear in Google Drive and Supabase (case-sensitive, must match exactly)
 2. **Billing tier** — `foundation` | `ascent` | `elevation`
 3. **Contact email** — for their portal login
+4. **Platforms** — which social platforms are included in their plan (for scheduler config)
+5. **Status** — active (paying) or prospect (move from `clients/prospects/` if converting)
 
 ---
 
 ## Step 1 — Create client folder
 
 ```bash
-mkdir -p /Users/theknightfamily/Projects/clients/[client-name]/assets
+mkdir -p /Users/theknightfamily/Projects/clients/active/[client-slug]/assets
+mkdir -p /Users/theknightfamily/Projects/clients/active/[client-slug]/sources/podcast
+mkdir -p /Users/theknightfamily/Projects/clients/active/[client-slug]/sources/books
+mkdir -p /Users/theknightfamily/Projects/clients/active/[client-slug]/sources/interviews
 ```
 
-Create `clients/[client-name]/CLAUDE.md`:
+If converting from a prospect, move the existing folder:
+```bash
+mv /Users/theknightfamily/Projects/clients/prospects/[client-slug] /Users/theknightfamily/Projects/clients/active/
+```
+
+---
+
+## Step 2 — Create brand files
+
+Copy and fill in the templates:
+
+```bash
+cp /Users/theknightfamily/Projects/clients/templates/BRAND-IDENTITY-template.md \
+   /Users/theknightfamily/Projects/clients/active/[client-slug]/BRAND-IDENTITY.md
+
+cp /Users/theknightfamily/Projects/clients/templates/BRAND-VOICE-template.md \
+   /Users/theknightfamily/Projects/clients/active/[client-slug]/BRAND-VOICE.md
+
+cp /Users/theknightfamily/Projects/clients/templates/CONTENT-INDEX-template.md \
+   /Users/theknightfamily/Projects/clients/active/[client-slug]/CONTENT-INDEX.md
+```
+
+Fill in what's known from intake. Run `/brand-crawl` after onboarding to complete BRAND-IDENTITY.md and BRAND-VOICE.md from their website.
+
+**Critical:** Add the Hashtag Strategy section to BRAND-VOICE.md before running the scheduler. The scheduler reads this file directly — no separate brief needed.
+
+---
+
+## Step 3 — Create CLAUDE.md
+
+Create `clients/active/[client-slug]/CLAUDE.md`:
 
 ```markdown
 # [Client Name]
 
 **Status:** Active
-**Type:** [coaching brand / ministry / B2B / etc.]
 **Tier:** [foundation / ascent / elevation]
 **Contact:** [email]
+**Type:** [coaching brand / ministry / B2B / etc.]
 
-## Brand
+## What They Do
 
-[1-2 sentence description of what they do and who they serve.]
+[1-2 sentence description.]
 
 ## Deliverables
 
-- [List deliverables: website, course, social content, etc.]
+- [List: website, social content, course, etc.]
+
+## Files
+
+- `BRAND-IDENTITY.md` — colors, fonts, logos, visual system
+- `BRAND-VOICE.md` — voice, mission, pillars, audience, hashtags
+- `CONTENT-INDEX.md` — source material tracker
+- `sources/` — podcast transcripts, book excerpts, interviews
 ```
 
 ---
 
-## Step 2 — Create Doppler project
+## Step 4 — Add to scheduler
 
-Run in the NP BE workspace context (default unless you're inside `/personal`):
+Add the client to `clients.json` in the social media scheduler:
+
+```bash
+# Edit:
+/Users/theknightfamily/Projects/narrow-path/social-media-scheduler/clients.json
+```
+
+Add entry:
+```json
+"[Exact Client Name as in Drive]": {
+  "blogId": [Metricool blog ID],
+  "industry": "[personal-brand / b2b / b2c / ministry]",
+  "initials": "[XX]",
+  "tier": "[foundation / ascent / elevation]",
+  "platforms": ["instagram", "facebook", "linkedin"]
+}
+```
+
+The scheduler reads `BRAND-VOICE.md` directly — no `brief.md` needed.
+
+---
+
+## Step 5 — Doppler project
 
 ```bash
 doppler projects create [client-name-kebab]
 ```
 
-Add any client-specific secrets to the new project as they're identified (Metricool token, custom API keys, etc.).
-
 ---
 
-## Step 3 — Add Supabase profile
+## Step 6 — Supabase profile
 
-In the `npbe-portal` Supabase project, insert into the `profiles` table:
+In the `npbe-portal` Supabase project:
 
 ```sql
 INSERT INTO profiles (company_name, tier, role)
 VALUES ('[Exact Client Name]', '[tier]', 'client');
 ```
 
-**Critical:** `company_name` must be an exact character-for-character match with the Google Drive folder name created in Step 5. This is how portal social posts are matched to each client. Case-sensitive.
+**Critical:** `company_name` must be character-for-character identical to the Google Drive folder name. Case-sensitive. This is how portal social posts match to each client.
 
 ---
 
-## Step 4 — Create portal auth account
+## Step 7 — Portal auth account
 
-In Supabase Auth, invite the client's email address. After the row is created in `auth.users`, confirm their `role` is set to `client` in the `profiles` table.
-
----
-
-## Step 5 — Create Google Drive folder
-
-Manually create a folder in Google Drive with the **exact** name used in Step 3. No extra spaces, no different capitalization. If the names don't match, their social posts will not appear in the portal.
+In Supabase Auth, invite the client's email. After the row appears in `auth.users`, confirm `role = 'client'` in `profiles`.
 
 ---
 
-## Step 6 — Update clients/CLAUDE.md
+## Step 8 — Google Drive folder
 
-Add the client to the Active Clients table:
+Create the folder in Google Drive with the **exact** name from Step 6. No extra spaces, no different capitalization.
 
+---
+
+## Step 9 — Update clients/CLAUDE.md
+
+Add the client to the Active Clients section:
 ```
 /Users/theknightfamily/Projects/clients/CLAUDE.md
 ```
 
 ---
 
-## Step 7 — Confirm everything
+## Final Checklist
 
-- [ ] `clients/[client-name]/` folder created with CLAUDE.md and `assets/` subdirectory
-- [ ] Doppler project created in NP BE workspace
-- [ ] Supabase `profiles` row inserted — `company_name` matches Drive folder exactly
-- [ ] Supabase auth account created — role = `client`
-- [ ] Google Drive folder created — name matches Supabase `company_name` exactly
-- [ ] `clients/CLAUDE.md` updated with new client
-- [ ] Billing tier confirmed and set in Supabase
+- [ ] `clients/active/[client-slug]/` folder with assets/ and sources/ subfolders
+- [ ] `BRAND-IDENTITY.md` created (fill with brand crawl data)
+- [ ] `BRAND-VOICE.md` created with Hashtag Strategy section
+- [ ] `CONTENT-INDEX.md` created
+- [ ] `CLAUDE.md` created
+- [ ] Added to scheduler `clients.json` with correct platforms and tier
+- [ ] Doppler project created
+- [ ] Supabase `profiles` row inserted — company_name matches Drive folder exactly
+- [ ] Supabase auth account created — role = client
+- [ ] Google Drive folder created — name matches Supabase exactly
+- [ ] `clients/CLAUDE.md` updated
 
-## See also
+## Next steps after onboarding
 
-- `/brand-kit` — run a brand crawl after onboarding to build their brand kit
-- `/pre-deploy` — checklist before going live with any client-facing work
+- `/brand-crawl [url]` — complete BRAND-IDENTITY.md and BRAND-VOICE.md from their site
+- `npm run plan` — generate first month of content once brand files are complete
