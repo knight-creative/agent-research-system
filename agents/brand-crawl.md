@@ -129,6 +129,7 @@ Invoke this mode when new content arrives: a book, podcast transcripts, intervie
 4. **Update `BRAND-VOICE.md`** with the new signal — append to relevant sections or add new ones. Never rewrite what's already there; only add.
 5. **Drop the raw source** into `sources/[type]/[filename].md` if it isn't already saved
 6. **Update `CONTENT-INDEX.md`** — mark the source as synthesized, log what was added and when
+7. **Sync the scheduler brief** — check if a scheduler brief exists at `~/Projects/narrow-path/social-media-scheduler/clients/[slug]/brief.md`. If voice, pillars, or positioning changed meaningfully, update it to match. The scheduler brief is prompt-optimized and intentionally shorter — don't copy BRAND-VOICE.md verbatim, just reflect the change.
 
 ### What NOT to add to BRAND-VOICE.md
 - Full transcripts or long passages — those live in `sources/`
