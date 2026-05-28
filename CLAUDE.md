@@ -5,7 +5,7 @@
 > **File ownership map — route updates to the right place:**
 > - NP brand voice, naming philosophy, faith identity, NP infrastructure → `~/Projects/narrow-path/CLAUDE.md`
 > - Portal code patterns, design tokens, component rules → `~/Projects/narrow-path/narrow-path-website/Narrow-Path-main/CLAUDE.md`
-> - Client brand voice and copy → `clients/[client-name]/BRAND-KIT.md`
+> - Client brand voice and copy → `clients/[active|prospects]/[client-name]/BRAND-VOICE.md`
 > - Universal work style, git rules, stack defaults → this file
 
 You are working with James Knight Cox, co-founder of **Narrow Path Brand Elevation**, a brand strategy and content marketing agency based in GA. James is highly creative, motivated, and loves to learn. He strives for the highest possible quality in everything he creates. 
@@ -72,6 +72,32 @@ If the path is clear and the action is reversible — execute. If it's hard to u
 
 **On tradeoffs:** When two legitimate approaches exist and each has real costs, don't just pick one silently. Present both with a brief pro/con, give a clear recommendation for the project, and wait for input before proceeding. Keep it tight — this is a decision prompt, not a design doc.
 
+### Pre-Build Audit — Required Before Creating Anything New
+
+Before creating a new agent, file, workflow, pipeline, tool, or service — stop and answer these four questions. The burden of proof is always on the new thing, not on the existing one.
+
+**1. Does something already handle this?**
+Check before touching a keyboard:
+- Agents: read `~/.claude/AGENTS.md` — does an existing agent cover this?
+- Files: does this file/folder already exist? Read it before creating a new one.
+- Workflows: does the scheduler, a skill, or an existing pipeline already do this?
+- Services: does something already in the stack cover this need?
+
+**2. Can an existing thing be extended instead of replaced?**
+Adding a workflow section to an existing agent is almost always better than a new agent. Appending to an existing file is almost always better than a new file. Extending beats creating.
+
+**3. If two things exist that do similar jobs — which one is canonical?**
+Eliminate the derivative. Make one thing the source of truth. Two files holding the same voice data, two agents doing the same research, two briefs for the same client — these are always a problem waiting to happen. The right move is consolidation, not coexistence.
+
+**4. What does the new thing replace?**
+If the answer is "nothing — it layers on top," that requires explicit justification. Layering is only correct when things operate at genuinely different levels (e.g., social-writer creates posts, scheduler executes them — different layers, not redundant). If two things operate at the same level and do similar jobs, one should be removed.
+
+**The test:** "If we already have X, do we truly need Y?" If the answer is "they do different things at different layers" — proceed. If the answer is "they kind of do the same thing" — consolidate first.
+
+This is not a slow-down. It's a five-second check that prevents the kind of drift that just required an hour of cleanup. Run it every time.
+
+---
+
 ### Secrets & Environment Variables
 - **All secrets live in Doppler** — no exceptions across any project type (NP, client, personal).
 - Never scaffold a project with a committed `.env` file or hardcoded credentials.
@@ -106,7 +132,7 @@ Secrets always go in Doppler. Never scaffold a project with hardcoded credential
 
 ### Code & Features
 - **Plan before code** — on anything non-trivial, establish the structural approach and confirm it before writing implementation. Don't build first and discover the wrong direction later.
-- **No duplicate work** — check existing files before creating new ones. Trust internal code and framework guarantees.
+- **No duplicate work** — run the Pre-Build Audit before creating any file, agent, workflow, or service. Trust internal code and framework guarantees.
 - **No unnecessary comments** — only when the WHY is non-obvious.
 - **Zero mediocrity** — skip "good enough." If there's a clearly better approach, use it.
 - **Package manager: pnpm** — use pnpm for all JavaScript/TypeScript projects. Faster, stricter, and more space-efficient than npm. Never default to npm unless a project explicitly requires it.

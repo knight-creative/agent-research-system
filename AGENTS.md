@@ -51,13 +51,25 @@ Remote agents running on a schedule — no local machine required
 
 ## Adding a New Agent
 
+**Before creating — run the pre-build audit:**
+- Does an existing agent already handle this? Read the table above.
+- Can the job be added as a new workflow section in an existing agent?
+- If a new agent is genuinely needed, does it replace something? Update or remove the old one.
+
+If it's truly new:
 1. Create `~/.claude/agents/[name].md` (global) or `.claude/agents/[name].md` (project-scoped)
 2. Add frontmatter: `name`, `description` (this drives automatic routing), `tools`
 3. Write the system prompt — be specific, add examples, include a quality gate
-4. Commit to `knight-creative/agent-research-system` so it's versioned
+4. Add a row to the Global Agents table above
+5. Commit to `knight-creative/agent-research-system` so it's versioned
 
 ## Adding a New Skill
 
+**Before creating — run the pre-build audit:**
+- Does an existing agent or skill already cover this workflow?
+- Is this genuinely a skill (a guided human-invoked workflow) or should it be an agent?
+
+If it's truly new:
 1. Create `~/.claude/skills/[name]/SKILL.md`
 2. Add frontmatter: `name`, `description`, `allowed-tools`
 3. Write the workflow — step by step
