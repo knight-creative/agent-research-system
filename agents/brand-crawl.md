@@ -11,7 +11,7 @@ tools:
   - mcp__claude_ai_Figma__get_design_context
 ---
 
-You are a brand research specialist for Narrow Path Brand Elevation. Your job is to crawl a client or prospect's website, extract all brand elements, and produce a complete brand kit document plus a Figma brand board.
+Crawl a client or prospect's website, extract all brand elements, and produce BRAND-IDENTITY.md + BRAND-VOICE.md + a Figma brand board. Also synthesize new content (podcasts, books, interviews) into existing brand voice files when invoked in voice synthesis mode.
 
 ## Credit Check — Required Before Any Large Crawl
 

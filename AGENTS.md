@@ -1,84 +1,107 @@
 # Agent & Skill Index
 
-Quick reference for the full agent system. For full instructions, read the individual files.
+Quick reference for the full system. For full instructions, read the individual files.
 
 ---
 
 ## Global Agents
-`~/.claude/agents/` — available in every session
+`~/.claude/agents/` — auto-routed based on description matching
 
-| Agent | Trigger phrases | What it does |
+| Agent | Triggers | What it does |
 |---|---|---|
-| `brand-crawl` | "brand crawl", "build a brand kit", "research [client]'s brand" | Crawls a client URL with Firecrawl, extracts colors/typography/voice/assets, writes BRAND-KIT.md, builds a Figma brand board |
-| `social-writer` | "write posts", "draft captions", "social content for [client]" | Writes platform-native social media copy. Reads client brief.md and BRAND-KIT.md before writing. Knows all platform specs and copywriting frameworks |
-| `figma-designer` | "build in Figma", "create a brand board", "design [X]", "social slides" | Brand boards, UI mockups, component libraries, social media templates. Knows all platform dimensions and NP design tokens |
-| `web-dev` | "build a page", "build a site", "add a section", "design a landing page" | Full website builds following the Vibe Coding sequence. Design system standards, SEO, performance, security, accessibility, pre-launch gate |
-| `portal-reviewer` | "review my portal changes", "check this code", "does this look right" | Reviews portal code against established patterns: Supabase client usage, server vs client components, mobile rules, undo/safety, copy rules |
-| `research-director` | "run research", "check for updates", manually or weekly schedule | Weekly system health check: AI model releases, stack versions, platform algorithm changes, security advisories, workflow consolidation opportunities. Runs automatically every Monday at 8am ET |
-| `competitive-analysis` | "analyze this competitor", "research [company]", "run a comp analysis", "what is [company] doing" | Scrapes a competitor's website, social profiles, Meta Ad Library, content, and job postings. Produces structured report with gap analysis. Three modes: quick / standard / deep |
-| `seo-aeo-geo` | "audit this site for SEO", "check our GEO presence", "are we showing up in AI answers", "optimize for answer engines", "run an SEO audit for [client]", "what keywords should [client] target" | Dual-mode: audits a site (technical SEO, on-page, AEO, GEO, content gaps) and maintains standing knowledge on what's working. Works from public data; flags where paid tools (GSC, Ahrefs) would unlock more |
+| `brand-crawl` | "brand crawl", "build a brand kit", "research [client]'s brand", "synthesize this into the brand voice" | Crawls a URL, extracts brand elements, writes BRAND-IDENTITY.md + BRAND-VOICE.md, builds a Figma brand board. Also synthesizes podcasts/books/interviews into existing brand voice files. |
+| `social-writer` | "write posts", "draft captions", "social content for [client]", "repurpose this episode" | Writes platform-native social copy. Reads BRAND-VOICE.md first. Repurposes long-form content into posts and Sheets-ready content plans. |
+| `figma-designer` | "build in Figma", "create a brand board", "design [X]", "build social slides" | Brand boards, UI mockups, social templates, component libraries. Reads BRAND-IDENTITY.md first. |
+| `web-dev` | "build a page", "build a site", "add a section", "create a page" | Website and web app builds. Follows Vibe Coding sequence. Reads project CLAUDE.md for brand voice before writing copy. |
+| `competitive-analysis` | "analyze this competitor", "research [company]", "who are [client]'s competitors", "find competitors for [niche]" | Researches competitors. Discovery mode (find unknown competitors) or analysis mode (deep research on a specific company). |
+| `research-director` | "run research", "check for updates", or runs automatically on schedule | Weekly system health check: AI models, stack security/updates, platform algorithms, workflow consolidation. Self-improves its own methods. |
 
 ---
 
 ## Project Agents
 Scoped to a specific directory — only active when working inside that project
 
-| Agent | Location | Trigger phrases | What it does |
+| Agent | Location | Triggers | What it does |
 |---|---|---|---|
-| `portal-dev` | `narrow-path/narrow-path-website/Narrow-Path-main/.claude/agents/` | "build", "add", "fix", "update" anything in the portal | Full-stack portal development. Knows the complete codebase: design tokens, Supabase patterns, route structure, auth gates, tier gating, component patterns, pre-commit quality gate |
+| `portal-dev` | `narrow-path/narrow-path-website/Narrow-Path-main/.claude/agents/` | "build", "add", "fix", "update" anything in the portal | Full-stack portal development: design tokens, Supabase patterns, route structure, auth, tier gating, component patterns |
 
 ---
 
 ## Skills (Slash Commands)
-`~/.claude/skills/` — invoke with `/skill-name`
+`~/.claude/skills/` — you invoke these deliberately with `/name`
 
 | Skill | Command | What it does |
 |---|---|---|
-| Client Onboard | `/client-onboard` | Step-by-step checklist for adding a new NP client: folder setup, Doppler project, Supabase profile, portal auth account, Google Drive folder |
+| Client Onboard | `/client-onboard` | Onboarding checklist for a new client: folder structure, brand files, scheduler config, Doppler, Supabase, portal auth, Google Drive |
 | Pre-Deploy | `/pre-deploy` | Portal go-live checklist: migrations, Doppler secrets, Resend verification, Slack URLs, PWA assets, mobile testing, DNS |
 | Frontend Design | `/frontend-design` | Guidance for distinctive, production-grade web interfaces: aesthetic direction, typography, motion, visual depth |
+| Portal Review | `/portal-review` | Pre-commit review checklist for portal code: Supabase usage, server/client boundaries, auth, mobile, undo/safety, copy, TypeScript, secrets |
+| SEO Audit | `/seo-audit` | Full SEO / AEO / GEO audit on a client site: technical SEO, on-page, featured snippets, AI citation presence, content gaps |
 
 ---
 
 ## Scheduled Routines
 Remote agents running on a schedule — no local machine required
 
-| Routine | Schedule | What it does | View results |
+| Routine | Schedule | What it does | View |
 |---|---|---|---|
-| `research-director-weekly` | Every Monday, 8am ET | Full system research report: models, stack, platforms, security, workflow consolidation, new tools | [claude.ai/code/routines](https://claude.ai/code/routines/trig_016s8qFbY86nkPaAvZrjFgE7) |
+| `research-director-weekly` | Every Monday, 8am ET | System health report: models, stack, platforms, security, workflow consolidation. Self-improves its research methods. | [routines](https://claude.ai/code/routines/trig_016s8qFbY86nkPaAvZrjFgE7) |
+
+---
+
+## Hooks
+Deterministic rules that fire automatically — no AI judgment, no tokens spent deciding
+
+| Hook | Trigger | What it does |
+|---|---|---|
+| *(none configured yet)* | — | — |
+
+*Next to add: PostToolUse auto-format after code edits, PreToolUse block on protected files, SessionStart context injection.*
+
+---
+
+## When to use what
+
+| Situation | Use |
+|---|---|
+| Delegate a project — research, writing, building, designing | **Agent** |
+| Follow a standard procedure you always consciously trigger | **Skill** |
+| Something that must always happen, no exceptions | **Hook** |
+| Keep checking on something while this session is open | **Loop** (`/loop`) |
+| Something that must run on a schedule unattended | **Routine** |
 
 ---
 
 ## Adding a New Agent
 
-**Before creating — run the pre-build audit:**
-- Does an existing agent already handle this? Read the table above.
-- Can the job be added as a new workflow section in an existing agent?
-- If a new agent is genuinely needed, does it replace something? Update or remove the old one.
+**Run the pre-build audit first:**
+- Does an existing agent already handle this?
+- Can the job be added as a new section in an existing agent?
+- If new: what does it replace? Update or remove the old one.
 
-If it's truly new:
-1. Create `~/.claude/agents/[name].md` (global) or `.claude/agents/[name].md` (project-scoped)
-2. Add frontmatter: `name`, `description` (this drives automatic routing), `tools`
-3. Write the system prompt — be specific, add examples, include a quality gate
-4. Add a row to the Global Agents table above
-5. Commit to `knight-creative/agent-research-system` so it's versioned
+If it's genuinely new:
+1. Create `~/.claude/agents/[name].md`
+2. Frontmatter: `name`, `description` (drives routing), `tools`
+3. Open with task-execution language — what to DO, not who to BE
+4. Add a row to the table above
+5. Commit to `knight-creative/agent-research-system`
 
 ## Adding a New Skill
 
-**Before creating — run the pre-build audit:**
-- Does an existing agent or skill already cover this workflow?
-- Is this genuinely a skill (a guided human-invoked workflow) or should it be an agent?
+**Run the pre-build audit first:**
+- Does an existing skill or agent already cover this?
+- Is this a procedure you manually invoke, or work you delegate? (skill vs. agent)
 
-If it's truly new:
+If it's genuinely new:
 1. Create `~/.claude/skills/[name]/SKILL.md`
-2. Add frontmatter: `name`, `description`, `allowed-tools`
-3. Write the workflow — step by step
-4. Invoke with `/name` in any session
+2. Frontmatter: `name`, `description`, `allowed-tools`
+3. Write as a step-by-step procedure
+4. Add a row to the Skills table above
 
-## Training an Agent (making it better)
+## Improving an Agent or Skill
 
-After any session where an agent did something wrong or exceptionally well:
-1. Open the agent file
+After any session where something worked exceptionally well or failed:
+1. Open the file
 2. Add one rule, one example, or one clarification
-3. Commit: `git commit -m "feat: [agent-name] — [what you improved]"`
+3. Commit: `git commit -m "feat: [name] — [what you improved]"`
 4. The improvement persists in every future session
