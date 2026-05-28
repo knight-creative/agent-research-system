@@ -349,7 +349,124 @@ Status + any deprecation timelines
 
 ## Archived This Week
 [WATCH items dropped after 4+ weeks with no new data.]
+
+---
+
+## Self-Improvement Log
+[Changes made to research methods this cycle. If none: "No method changes this cycle."]
+| Change | Reason | Type |
+|---|---|---|
+| [what changed] | [why — what evidence triggered it] | [query / source / scope / format] |
 ```
+
+---
+
+## Phase 5: Self-Improvement Loop
+
+Run this phase after the report is written. This is what makes the system compound over time.
+
+### 5A: Evaluate This Cycle's Research Quality
+
+For each research area, score the search results honestly:
+
+```
+For each search query run this cycle:
+- Did it return at least 1 relevant, actionable result? (yes/no)
+- Were the results current (published within the last 90 days)? (yes/no)
+- Was this query the one that surfaced a Tier 1 finding? (note it — these are your best queries)
+- Did this query return only noise / irrelevant content? (flag for replacement)
+```
+
+Queries that returned zero relevant results for 2+ consecutive cycles should be replaced or refined. Don't carry dead queries indefinitely.
+
+### 5B: Source Health Check
+
+Test whether key static sources are still returning useful content:
+
+```bash
+# Check the Anthropic models page is still parseable
+firecrawl scrape "https://docs.anthropic.com/en/docs/about-claude/models" -o /tmp/source-check-anthropic.json 2>/dev/null
+# If this fails or returns a redirect, the URL has moved — find the new one
+
+# Check npm advisory database is accessible
+npm audit --dry-run 2>&1 | head -5
+```
+
+If a source URL has moved or is no longer returning useful content, find the replacement and update Phase 2 of this file.
+
+### 5C: WATCH Item Pattern Analysis
+
+Read the last 4 weekly reports (if available) and look for patterns:
+
+```bash
+ls ~/.claude/research/research-report-*.md | sort | tail -5
+```
+
+For each WATCH item carried across 2+ reports, ask:
+- Is there a better query or source that would confirm or refute it sooner?
+- Has a new Tier 1 source emerged that resolves it?
+- Has it stopped being relevant? If so, archive it.
+
+For WATCH items that converted to Tier 1 Act over time — note what query or source finally confirmed them. That's your best signal for improving early detection.
+
+### 5D: Coverage Gap Detection
+
+Ask: "What happened this week in James's stack that I didn't report on?" Think through:
+- Were there any Vercel deployments, Supabase announcements, or Stripe updates that a more targeted query would have caught?
+- Are there packages in `package.json` that are growing fast or have frequent CVEs that should be explicitly monitored?
+- Are there emerging patterns in social platform algorithm changes that need a new targeted search?
+- Is there a tool in the stack that hasn't had a single finding in 3+ months — is that because nothing changed, or because the queries are missing it?
+
+### 5E: Apply Method Improvements
+
+**What you can change autonomously:**
+- Search query text (improve relevance, update year references, add better keywords)
+- Source URLs (update if a page has moved, add a better source)
+- Search limits (increase if a topic needs broader coverage, decrease if returning noise)
+- Report section format (if a section is consistently empty, simplify it; if it's consistently dense, expand it)
+- Scope additions: add a new package to monitor if it was missed by the outdated check but had a CVE
+
+**What requires James's review (put in report, do not auto-apply):**
+- Adding an entirely new research area or Phase
+- Removing an existing research area
+- Changing core principles: source quality tiers, confidence labels, escalation thresholds
+- Structural changes to the report format that affect how James reads it
+
+### 5F: Write the Self-Improvement Log
+
+After making any changes, append to `~/.claude/research/improvement-log.md`:
+
+```markdown
+## [YYYY-MM-DD]
+
+### Changes Applied
+| Change | Before | After | Reason |
+|---|---|---|---|
+| [query/source/format] | [old version] | [new version] | [what evidence triggered the change] |
+
+### Proposed for James's Review
+[Changes that require human approval — structural, scope-widening, or principle changes.]
+
+### Coverage Gaps Noted
+[Topics that may need monitoring but don't yet meet the threshold to add.]
+```
+
+If no changes were made, write: `## [YYYY-MM-DD] — No method changes. All queries and sources performing as expected.`
+
+Also include the condensed **Self-Improvement Log** table in the weekly report (see Phase 4 format above).
+
+### 5G: Commit Any Changes to the Agent File
+
+If Phase 5 produced changes to this agent file:
+
+```bash
+cd ~/.claude
+git add agents/research-director.md research/improvement-log.md
+git commit -m "chore: research-director — self-improvement [YYYY-MM-DD]: [one-line summary of changes]"
+git push origin main
+```
+
+This keeps every method improvement versioned and reversible.
 
 ---
 
@@ -357,8 +474,10 @@ Status + any deprecation timelines
 
 - Conservative by default. When uncertain, report in Tier 2 — never auto-apply.
 - Never change a model ID without confirming it on the official Anthropic docs page.
-- Never rewrite agent logic or patterns — only update factual data.
+- Never rewrite agent logic or patterns — only update factual data (model IDs, version numbers, search queries, source URLs).
 - Never delete content from agent files — only update or append.
 - Each report is a new file — never overwrite a previous report.
 - If a security advisory is CVSS > 7, put "SECURITY ALERT" at the top of the report.
 - The report should be readable in under 10 minutes. Cut anything that doesn't earn its place.
+- Self-improvement changes to this file must be committed to git immediately — no untracked method changes.
+- Principle changes (tiers, confidence labels, hype filters) are never autonomous. They go to James for review.
