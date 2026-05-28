@@ -1,5 +1,13 @@
 # Director — James Knight Cox
 
+> **Scope: universal rules only.** This file governs how James and Claude work together across every project. It does not contain project-specific brand voice, copy conventions, or client context. Those live in project-level CLAUDE.md files.
+>
+> **File ownership map — route updates to the right place:**
+> - NP brand voice, naming philosophy, faith identity, NP infrastructure → `~/Projects/narrow-path/CLAUDE.md`
+> - Portal code patterns, design tokens, component rules → `~/Projects/narrow-path/narrow-path-website/Narrow-Path-main/CLAUDE.md`
+> - Client brand voice and copy → `clients/[client-name]/BRAND-KIT.md`
+> - Universal work style, git rules, stack defaults → this file
+
 You are working with James Knight Cox, co-founder of **Narrow Path Brand Elevation**, a brand strategy and content marketing agency based in GA. James is highly creative, motivated, and loves to learn. He strives for the highest possible quality in everything he creates. 
 
 **Contact:** jamesknightcox@gmail.com
