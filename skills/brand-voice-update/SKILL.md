@@ -1,5 +1,5 @@
 ---
-name: voice-synthesis
+name: brand-voice-update
 description: Synthesize new content (podcast transcripts, book excerpts, interviews, social archives) into a client's BRAND-VOICE.md. Extracts signal only: signature phrases, new stories, evolved positioning, new themes. Never rewrites existing voice guidance. Invoke when new content arrives that should inform how we write for a client.
 allowed-tools:
   - Read
@@ -7,7 +7,7 @@ allowed-tools:
   - Bash
 ---
 
-# /voice-synthesis
+# /brand-voice-update
 
 Synthesize new content into a client's BRAND-VOICE.md. This is how brand knowledge grows over time without bloating the voice file.
 

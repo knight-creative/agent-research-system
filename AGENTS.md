@@ -33,10 +33,11 @@ Scoped to a specific directory : only active when working inside that project
 | Skill | Command | What it does |
 |---|---|---|
 | Client Onboard | `/client-onboard` | Onboarding checklist for a new client: folder structure, brand files, scheduler config, Doppler, Supabase, portal auth, Google Drive |
-| Pre-Deploy | `/pre-deploy` | Portal go-live checklist: migrations, Doppler secrets, Resend verification, Slack URLs, PWA assets, mobile testing, DNS |
-| Frontend Design | `/frontend-design` | Guidance for distinctive, production-grade web interfaces: aesthetic direction, typography, motion, visual depth |
-| Portal Review | `/portal-review` | Pre-commit review checklist for portal code: Supabase usage, server/client boundaries, auth, mobile, undo/safety, copy, TypeScript, secrets |
-| SEO Audit | `/seo-audit` | Full SEO / AEO / GEO audit on a client site: technical SEO, on-page, featured snippets, AI citation presence, content gaps |
+| NP Portal Pre-Deploy | `/np-portal-pre-deploy` | NP portal only. Go-live checklist: Supabase migrations, Doppler secrets, Resend, Slack webhook, PWA assets, mobile testing, DNS |
+| NP Portal Review | `/np-portal-review` | NP portal only. Pre-commit code review: Supabase patterns, auth routes, mobile, undo/safety, copy rules, TypeScript, secrets |
+| UI Design | `/ui-design` | Design standards for all web/app interfaces: typography, color, spacing, motion, visual depth, components, accessibility, performance, current CSS |
+| SAG Audit | `/sag-audit` | Full SEO + AEO + GEO audit on a client site: technical SEO, on-page, featured snippets, AI citation presence, content gaps |
+| Brand Voice Update | `/brand-voice-update` | Synthesize new content (podcast, book, interview) into a client's BRAND-VOICE.md. Extracts signal only, never rewrites existing guidance. |
 | Quick Commit | `/quick-commit` | Stage all changes, generate a Conventional Commits message from the diff, commit, and push. Never pushes to main. |
 
 ---

@@ -1,15 +1,15 @@
 ---
-name: pre-deploy
+name: np-portal-pre-deploy
 description: |
-  Portal go-live checklist for the Narrow Path Brand Elevation portal. Run before any Vercel deploy. Covers pending Supabase migrations, Doppler secrets, Resend domain verification, Slack Event Subscriptions URL, PWA assets, and mobile testing. Never skip this before pushing to production.
+  NP Portal only. Go-live checklist before any Vercel deploy of the Narrow Path Brand Elevation portal. Covers pending Supabase migrations, Doppler secrets, Resend domain verification, Slack Event Subscriptions URL, PWA assets, and mobile testing. Never skip this before pushing to production.
 allowed-tools:
   - Bash
   - Read
 ---
 
-# /pre-deploy
+# /np-portal-pre-deploy
 
-Go-live checklist for the Narrow Path portal. Every item must be confirmed before deploying to production.
+Go-live checklist for the Narrow Path portal. NP portal specific. Every item must be confirmed before deploying to production.
 
 **Portal location:** `/Users/theknightfamily/Projects/narrow-path/narrow-path-website/Narrow-Path-main/`
 
@@ -36,9 +36,9 @@ All of these must be set before deploying. Verify with:
 doppler secrets --only-names --project npbe-portal
 ```
 
-- [ ] `SLACK_TEAM_CHANNEL_ID` — set
-- [ ] `SLACK_PODCAST_PRODUCER_ID` — set
-- [ ] `RESEND_FROM_ADDRESS` — set to a verified `npbrandelevation.com` address
+- [ ] `SLACK_TEAM_CHANNEL_ID` set
+- [ ] `SLACK_PODCAST_PRODUCER_ID` set
+- [ ] `RESEND_FROM_ADDRESS` set to a verified `npbrandelevation.com` address
 - [ ] Google Service Account credentials wired (replace stubs in `lib/google-calendar.ts`)
 
 Confirm Doppler is synced to Vercel before the deploy.
@@ -85,7 +85,7 @@ Flows to test on each:
 - Portal dashboard loads without errors
 - Messages thread: keyboard opens without breaking layout
 - Push notification prompt appears (if enabled for the tier)
-- Any feature changed in this deploy — test the full flow
+- Any feature changed in this deploy: test the full flow
 
 ---
 
@@ -100,7 +100,7 @@ Flows to test on each:
 ## Final Gate
 
 - [ ] All items above are checked
-- [ ] Current branch is NOT `main` — confirm you are on a release branch
+- [ ] Current branch is NOT `main` - confirm you are on a release branch
 
 ```bash
 git branch --show-current
@@ -112,4 +112,4 @@ git branch --show-current
 
 ## See also
 
-- `/client-onboard` — checklist for adding a new client before they access the portal
+- `/client-onboard` - checklist for adding a new client before they access the portal

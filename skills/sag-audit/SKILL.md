@@ -1,33 +1,33 @@
 ---
-name: seo-audit
-description: Run a full SEO / AEO / GEO audit on a client site. Covers technical SEO, on-page quality, featured snippet opportunities, AI citation presence, and content gaps. Invoke with a URL and client name. Saves a dated audit report to the client folder.
+name: sag-audit
+description: Run a full SAG audit (SEO, AEO, GEO) on a client site. Covers technical SEO, on-page quality, featured snippet opportunities, AI citation presence, and content gaps. Invoke with a URL and client name. Saves a dated audit report to the client folder.
 allowed-tools:
   - Bash
   - Read
   - Write
 ---
 
-# /seo-audit
+# /sag-audit
 
 Full search visibility audit across three disciplines: SEO (ranking), AEO (answer engines), and GEO (AI citations). Run this deliberately on a client site when an audit is needed.
 
-## Before starting — confirm you have
+## Before starting - confirm you have
 
 - Site URL
 - Client name (for saving the report)
 - Client's 3-5 primary services or topics
-- Google Search Console access (ask the client — transforms guesswork into fact)
+- Google Search Console access (ask the client - transforms guesswork into fact)
 
 ---
 
-## Phase 1 — Technical SEO
+## Phase 1 - Technical SEO
 
 ```bash
 FIRECRAWL_API_KEY="fc-b1907a948ee649b2b219ddc7ec74a6db" /Users/theknightfamily/.npm-global/bin/firecrawl scrape "<url>" -o .firecrawl/home.json
 FIRECRAWL_API_KEY="fc-b1907a948ee649b2b219ddc7ec74a6db" /Users/theknightfamily/.npm-global/bin/firecrawl scrape "<url>/robots.txt" -o .firecrawl/robots.json
 FIRECRAWL_API_KEY="fc-b1907a948ee649b2b219ddc7ec74a6db" /Users/theknightfamily/.npm-global/bin/firecrawl crawl "<url>" --max-depth 2 --limit 20 --wait --progress -o .firecrawl/site-crawl.json
 
-# Core Web Vitals — free, no key
+# Core Web Vitals - free, no key
 curl "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=<url>&strategy=mobile" -o .firecrawl/pagespeed-mobile.json
 curl "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=<url>&strategy=desktop" -o .firecrawl/pagespeed-desktop.json
 ```
@@ -43,7 +43,7 @@ Check:
 
 ---
 
-## Phase 2 — On-Page SEO
+## Phase 2 - On-Page SEO
 
 For each key service or pillar page:
 
@@ -60,7 +60,7 @@ Check per page:
 
 ---
 
-## Phase 3 — AEO (Answer Engine Optimization)
+## Phase 3 - AEO (Answer Engine Optimization)
 
 ```bash
 YEAR=$(date +%Y)
@@ -80,7 +80,7 @@ Check:
 
 ---
 
-## Phase 4 — GEO (Generative Engine Optimization)
+## Phase 4 - GEO (Generative Engine Optimization)
 
 Check if the client appears in AI-generated answers:
 
@@ -100,7 +100,7 @@ Check: Is the brand mentioned in AI answers? Does the About page clearly state w
 
 ---
 
-## Phase 5 — Content Gaps
+## Phase 5 - Content Gaps
 
 ```bash
 FIRECRAWL_API_KEY="fc-b1907a948ee649b2b219ddc7ec74a6db" /Users/theknightfamily/.npm-global/bin/firecrawl search "[top competitor] [niche] content" --limit 5 -o .firecrawl/competitor-content.json
@@ -130,8 +130,8 @@ Report structure:
 
 ## Rules
 
-- Ask about Google Search Console first — it's free and changes everything
-- Technical issues before content — great content on a slow site is wasted work
-- GEO is the highest-leverage gap for most clients right now — prioritize it
-- One dated file per audit — never overwrite a previous one
-- If tooling limited the audit, say so explicitly — don't fill gaps with guesses
+- Ask about Google Search Console first - it's free and changes everything
+- Technical issues before content - great content on a slow site is wasted work
+- GEO is the highest-leverage gap for most clients right now - prioritize it
+- One dated file per audit - never overwrite a previous one
+- If tooling limited the audit, say so explicitly - don't fill gaps with guesses

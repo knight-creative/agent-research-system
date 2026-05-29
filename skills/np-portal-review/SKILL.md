@@ -1,16 +1,16 @@
 ---
-name: portal-review
-description: Run a pre-commit code review on portal changes. Checks Supabase usage, server/client component boundaries, auth protection, mobile compatibility, undo/safety mechanisms, copy rules, TypeScript, secrets, and database patterns. Invoke before committing any portal work.
+name: np-portal-review
+description: NP Portal only. Pre-commit code review against Narrow Path portal patterns. Checks Supabase client usage, server/client component boundaries, auth protection, mobile compatibility, undo/safety mechanisms, copy rules, TypeScript, secrets, and database patterns. Run before committing any portal work.
 allowed-tools:
   - Read
   - Bash
 ---
 
-# /portal-review
+# /np-portal-review
 
-Pre-commit checklist for the Narrow Path portal. Run this before committing any portal code change.
+Pre-commit checklist for the Narrow Path portal. NP portal specific. Run this before committing any portal code change.
 
-## Step 1 — Get the diff
+## Step 1 - Get the diff
 
 ```bash
 cd /Users/theknightfamily/Projects/narrow-path/narrow-path-website/Narrow-Path-main
@@ -29,14 +29,14 @@ If specific files were mentioned, read those directly.
 
 ---
 
-## Step 2 — Run through the checklist
+## Step 2 - Run through the checklist
 
-Work through each category. Report only what fails — if a category is clean, skip it.
+Work through each category. Report only what fails - if a category is clean, skip it.
 
 ### Supabase Client Usage
-- `lib/supabase/server.ts` — server components only
-- `lib/supabase/client.ts` — browser components only
-- `lib/supabase/admin.ts` — API routes only. Bypasses RLS entirely.
+- `lib/supabase/server.ts` - server components only
+- `lib/supabase/client.ts` - browser components only
+- `lib/supabase/admin.ts` - API routes only. Bypasses RLS entirely.
   - **BLOCK** admin client used outside `/app/api/`
   - **BLOCK** admin client in server or browser components
 
@@ -46,13 +46,13 @@ Work through each category. Report only what fails — if a category is clean, s
 - **FLAG** `'use client'` that could be removed by lifting data to a parent server component
 
 ### Auth and Route Protection
-- `/portal/*` — role = 'client' only
-- `/admin/*` — role = 'admin' only
+- `/portal/*` - role = 'client' only
+- `/admin/*` - role = 'admin' only
 - **BLOCK** any protected route missing auth check
 
 ### Mobile Compatibility
 - Changes must work on iOS Safari, iOS Chrome (WebKit), and Android Chrome
-- **BLOCK** keyboard detection using `visualViewport` math — use focus/blur events
+- **BLOCK** keyboard detection using `visualViewport` math - use focus/blur events
 - **FLAG** `vh` or `dvh` viewport units in contexts that break when mobile keyboard is open
 
 ### Undo / Safety
@@ -60,7 +60,7 @@ Work through each category. Report only what fails — if a category is clean, s
 - **BLOCK** publish/send/change with no way to undo it
 
 ### Copy and Language
-- **FLAG** em dashes (`—`) in user-facing strings
+- **FLAG** em dashes in user-facing strings
 - **FLAG** fear-based, negative, or comparative client-facing language
 - **FLAG** headlines phrased as questions
 
@@ -79,12 +79,10 @@ Work through each category. Report only what fails — if a category is clean, s
 
 ---
 
-## Step 3 — Report
+## Step 3 - Report
 
-Use this format:
+- **BLOCK** - must fix before merging (security, data loss, production breakage, costly pattern violation)
+- **FLAG** - pattern violation, needs attention before shipping
+- **NOTE** - minor, low-priority observation
 
-- **BLOCK** — must fix before merging (security, data loss, production breakage, costly pattern violation)
-- **FLAG** — pattern violation, needs attention before shipping
-- **NOTE** — minor, low-priority observation
-
-If nothing is wrong, say so clearly and move on. Don't pad the report.
+If nothing is wrong, say so clearly and move on.
